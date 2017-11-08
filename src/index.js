@@ -6,7 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 //Route is a component for conditional rendering
 import { BrowserRouter, Route }from 'react-router-dom';
 import reducers from './reducers';
-import PostsIndex from '/components/post_index';
+import PostsIndex from './components/posts_index';
 import promise from 'redux-promise';
 
 //decide which middleware to apply, with this method from redux
