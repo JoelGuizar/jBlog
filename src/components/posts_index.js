@@ -11,7 +11,12 @@ class PostsIndex extends Component {
 
   renderPosts(){
     //lodash map takes care of object mapping
-    this.props.posts
+    return _.map(this.props.posts, posts => {
+      return (
+      <li className="list-group-item">
+        {post.title}
+      </li>)
+    })
   }
 
   render(){

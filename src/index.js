@@ -4,10 +4,14 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 //browser router is what communicates with the history/url library
 //Route is a component for conditional rendering
-import { BrowserRouter, Route }from 'react-router-dom';
+import promise from 'redux-promise';
+//switch takes in collection of different routes
+//will look at all the routes inside of it, and will show the first
+//route that matches the url. Order routes by specificity.
+import { BrowserRouter, Route, Switch }from 'react-router-dom';
 import reducers from './reducers';
 import PostsIndex from './components/posts_index';
-import promise from 'redux-promise';
+import PostsNew from './components/posts_new';
 
 //decide which middleware to apply, with this method from redux
 //decided to use redux-promise
@@ -19,7 +23,10 @@ ReactDOM.render(
   <Provider store={createStoreWithMiddleware(reducers)}>
     <BrowserRouter>
       <div>
-        <Route path="/" component={PostsIndex}/>
+        <Switch>
+          <Route path="/posts/new" component={PostsNew}/>
+          <Route path="/" component={PostsIndex} exact/>
+        </Switch>
       </div>
     </BrowserRouter>
   </Provider>
