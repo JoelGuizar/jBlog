@@ -7,9 +7,11 @@ import { createStore, applyMiddleware } from 'redux';
 import { BrowserRouter, Route }from 'react-router-dom';
 import reducers from './reducers';
 import PostsIndex from '/components/post_index';
+import promise from 'redux-promise';
 
-
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+//decide which middleware to apply, with this method from redux
+//decided to use redux-promise
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 
 
