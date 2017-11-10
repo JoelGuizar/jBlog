@@ -15,15 +15,29 @@ class PostsNew extends Component {
           type="text"
         //an object which contains a bunch of event handlers/props like onChange etc..
           {...field.input}
+        //meta.error is automatically added from our validate object,
+        //it'll match the name, with the key of the errors object from validation
+        //comes with 3 states: pristine, touched, invalid
+        //here, we will show the error if field.meta.touched state is true
         />
+
+        {field.meta.touched ? field.meta.error : ''}
       </div>
     )
   }
 
+  //values = complete list of Field input submitted
+  onSubmit(values){
+
+  }
+
   render(){
+    //pulls from redux-form
+    const { handleSubmit } = this.props;
     return (
       //redux-form still has to work with form inputs
-      <form>
+      //handleSubmit from reduxForm, if everything ok, then uses our onSubmit
+      <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
         <Field
           //prop for dynamic label
           label="Title"
@@ -44,6 +58,7 @@ class PostsNew extends Component {
           name="content"
           component={this.renderField}
         />
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     );
   }
@@ -58,8 +73,15 @@ function validate(values){
   //if errors has *any* properties, redux-form will not submit the form.
   const errors = {}
 
-  if (!values.title) {
-    errors.title = "Enter a title"
+  //if no title passed by User, then assign it to errors object
+  if (!values.title || values.title.length < 3) {
+    errors.title = "Enter a title";
+  }
+  if (!values.categories) {
+    errors.categories = "Enter a category";
+  }
+  if (!values.content) {
+    errors.content = "Enter content";
   }
   return errors;
 }
