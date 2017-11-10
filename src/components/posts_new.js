@@ -3,6 +3,23 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 
 class PostsNew extends Component {
+
+  //by convention, use field as the argument -- field contains some event handlers
+  renderTitleField(field){
+    return (
+      //styling for this also goes here.
+      <div className="form-group">
+        <label>Title</label>
+        <input
+          className="form-control"
+          type="text"
+        //an object which contains a bunch of event handlers/props like onChange etc..
+          {...field.input}
+        />
+      </div>
+    )
+  }
+
   render(){
     return (
       //redux-form still has to work with form inputs
@@ -14,6 +31,10 @@ class PostsNew extends Component {
           //Field component doesn't know how to show on the screen, it needs
           //this component/function to show the JSX.
           component={this.renderTitleField}
+        />
+        <Field
+          name="tags"
+          component={this.renderTagsField}
         />
       </form>
     );
