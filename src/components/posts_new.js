@@ -58,6 +58,9 @@ function validate(values){
   //if errors has *any* properties, redux-form will not submit the form.
   const errors = {}
 
+  if (!values.title) {
+    errors.title = "Enter a title"
+  }
   return errors;
 }
 
