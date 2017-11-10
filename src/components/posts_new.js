@@ -1,14 +1,22 @@
 import React, { Component } from 'react';
 //helps connect to the redux-form reducer
 import { Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {createPost} from '../actions';
 
 class PostsNew extends Component {
 
   //by convention, use field as the argument -- field contains some event handlers
   renderField(field){
+    //destructuring meta of field, and the touched, error properties of meta
+    const { meta: {touched, error} } = field;
+    //same as field.meta.touch, field.meta.error
+    const className = `form-group ${touched && error ? 'has-danger' : ''}`;
+
     return (
       //styling for this also goes here.
-      <div className="form-group">
+      <div className={className}>
         <label>{field.label}</label>
         <input
           className="form-control"
@@ -20,15 +28,17 @@ class PostsNew extends Component {
         //comes with 3 states: pristine, touched, invalid
         //here, we will show the error if field.meta.touched state is true
         />
-
+        <div className="tagtag">
         {field.meta.touched ? field.meta.error : ''}
+        </div>
       </div>
     )
   }
 
   //values = complete list of Field input submitted
+  //still need to connect to redux, and make a action/reducer for createPost
   onSubmit(values){
-
+    this.props.createPost(values);
   }
 
   render(){
@@ -59,6 +69,7 @@ class PostsNew extends Component {
           component={this.renderField}
         />
         <button type="submit" className="btn btn-primary">Submit</button>
+      <Link to="/" className="btn btn-danger"> Cancel </Link>
       </form>
     );
   }
@@ -92,4 +103,6 @@ export default reduxForm({
   //has to be unique, so redux-form keeps form/the form's state separate
   form: 'PostsNewForm',
   validate
-})(PostsNew);
+})(
+  connect(null,{createPost})(PostsNew)
+);
