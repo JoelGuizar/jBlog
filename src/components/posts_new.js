@@ -106,6 +106,7 @@ function validate(values){
 //however, comes with configuration options
 export default reduxForm({
   //has to be unique, so redux-form keeps form/the form's state separate
+  //from other forms that may be on the page
   form: 'PostsNewForm',
   validate
 })(
