@@ -38,7 +38,12 @@ class PostsNew extends Component {
   //values = complete list of Field input submitted
   //still need to connect to redux, and make a action/reducer for createPost
   onSubmit(values){
-    this.props.createPost(values);
+    //since, router is passing down its own props, as defined in <Route>
+    //it always passes down Router props, such as history.
+    this.props.createPost(values, () => {
+      //cb as 2nd argument, as in action creator
+      this.props.history.push('/')
+    });
   }
 
   render(){
