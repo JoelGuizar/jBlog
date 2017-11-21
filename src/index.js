@@ -8,7 +8,7 @@ import promise from 'redux-promise';
 //switch takes in collection of different routes
 //will look at all the routes inside of it, and will show the first
 //route that matches the url. Order routes by specificity.
-import { BrowserRouter, Route, Switch }from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import reducers from './reducers';
 import PostsIndex from './components/posts_index';
 import PostsNew from './components/posts_new';
