@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { fetchPost } from '../actions';
-import { deletePost } from '../actions'
+import { deletePost } from '../actions';
 import { Link } from 'react-router-dom';
 
 class PostsShow extends Component {
@@ -16,7 +16,9 @@ class PostsShow extends Component {
 
   onDeleteClick(){
     const { id } = this.props.match.params;
-    this.props.deletePost(id);
+    this.props.deletePost(id, () => {
+      this.props.history.push('/');
+    });
   }
 
   render(){
@@ -51,7 +53,10 @@ class PostsShow extends Component {
 //but to do specific calculations like this
 function mapStateToProps({ posts }, ownProps) {
   //now the component will only receive THIS particular post
-  return { post: posts[ownProps.match.params] }
+  return { post: posts[ownProps.match.params.id] };
 }
 
-export default connect(null, { fetchPost })(PostsShow);
+//first argument is what state do you need here
+//second arg is connecting the action creators
+//then instantly call the component at the end
+export default connect(mapStateToProps, { fetchPost, deletePost })(PostsShow);
