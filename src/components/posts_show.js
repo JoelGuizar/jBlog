@@ -9,20 +9,20 @@ class PostsShow extends Component {
     //match is the top level property, and the
     //params is all the tokens that live inside the index.js such as :id
     //it can be /posts/:id or /posts/:id/:components
-    const { id } = this.props.params;
-    this.props.fetchPost();
+    const { id } = this.props.match.params;
+    this.props.fetchPost(id);
   }
 
   render(){
     const {post} = this.props;
 
     if (!post) {
-      return <div>Loading...</div>
+      return <div> Loading... </div>
     }
 
     return (
       <div>
-        <Link to="/" className="btn btn-primary"> Home </Link> 
+        <Link to="/" className="btn btn-primary"> Home </Link>
         <h3> {post.title} </h3>
         <h6> Categories: {post.categories} </h6>
         <p> {post.content} </p>
@@ -37,9 +37,9 @@ class PostsShow extends Component {
 // by convention we call it OwnProps
 // we use mapStateToProps not only to grab the app state,
 //but to do specific calculations like this
-function mapStateToProps({ posts }, OwnProps) {
+function mapStateToProps({ posts }, ownProps) {
   //now the component will only receive THIS particular post
-  return { post: posts[ownProps.match.params.id] }
+  return { post: posts[ownProps.match.params] }
 }
 
 export default connect(null, { fetchPost })(PostsShow);
