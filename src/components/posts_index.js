@@ -45,4 +45,5 @@ function mapStateToProps(state){
 
 //mapDispatchToProps still occuring, but putting in the action creator
 //like this, it'll be take care of automatically
+//which actionCreators do you want as the second argument
 export default connect(mapStateToProps, { fetchPosts })(PostsIndex);
