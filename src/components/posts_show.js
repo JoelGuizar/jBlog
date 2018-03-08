@@ -53,6 +53,7 @@ class PostsShow extends Component {
 //but to do specific calculations like this
 function mapStateToProps({ posts }, ownProps) {
   //now the component will only receive THIS particular post
+  //the 'posts' is from state.posts, which is what you called the reducer
   return { post: posts[ownProps.match.params.id] };
 }
 
